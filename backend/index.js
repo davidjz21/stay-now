@@ -6,6 +6,8 @@ import hotelsRoute from "./routes/hotels.js"
 import roomsRoute from "./routes/rooms.js"
 import usersRoute from "./routes/users.js"
 import cookieParser from "cookie-parser"
+import cors from "cors"
+
 
 const app = express()
 
@@ -13,7 +15,6 @@ dotenv.config()
 const connect = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI)
-        console.log("Conectado a la base de datos")
     } catch (error) {
         throw error
     }
@@ -28,6 +29,7 @@ mongoose.connection.on("disconnected", () => {
 })
 
 // middlewares
+app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
 
